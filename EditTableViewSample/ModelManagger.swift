@@ -24,7 +24,7 @@ class ModelManagger: NSObject {
         }
     }
     
-    func addChannel(item: Item) {
+    func addItem(item: Item) {
         items.append(item)
     }
     
