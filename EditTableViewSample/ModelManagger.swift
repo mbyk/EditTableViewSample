@@ -8,21 +8,21 @@
 
 import UIKit
 
-struct Item {
+struct InfoItem {
     var name: String
 }
 
-class ModelManagger: NSObject {
+protocol EditItemProvider: class {
+    associatedtype Item
+    var items: [Item] { get set}
+    
+    func addItem(item: Item)
+    func insertItem(item: Item,  atIndex index: Int)
+    func removeItemAtIndex(_ index: Int)
+    func moveItemAtIndex(fromIndex: Int, toIndex: Int)
+}
 
-    static var shared = ModelManagger()
-    
-    var items = [Item]()
-    
-    private override init() {
-        items = (0..<50).map {
-            Item(name: "title_\($0)")
-        }
-    }
+extension EditItemProvider {
     
     func addItem(item: Item) {
         items.append(item)
@@ -47,3 +47,18 @@ class ModelManagger: NSObject {
         items.insert(item, at: toIndex)
     }
 }
+
+class ModelManagger {
+
+    static var shared = ModelManagger()
+    var items = [InfoItem]()
+    
+    private init() {
+        items = (0..<50).map {
+            Item(name: "title_\($0)")
+        }
+    }
+    
+}
+
+extension ModelManagger: EditItemProvider {}
