@@ -20,6 +20,7 @@ protocol EditItemProvider: class {
     func insertItem(item: Item,  atIndex index: Int)
     func removeItemAtIndex(_ index: Int)
     func moveItemAtIndex(fromIndex: Int, toIndex: Int)
+    func removeAllItmes()
 }
 
 extension EditItemProvider {
@@ -45,6 +46,10 @@ extension EditItemProvider {
         let item = items[fromIndex]
         items.remove(at: fromIndex)
         items.insert(item, at: toIndex)
+    }
+    
+    func removeAllItmes() {
+        items.removeAll()
     }
 }
 
